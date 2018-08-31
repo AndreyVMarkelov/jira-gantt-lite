@@ -1,0 +1,52 @@
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="Simple Calendar" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-logo">/media/callogo.png</param>
+        <param name="plugin-icon">/media/calicon.png</param>
+        <param name="vendor-icon">/media/icon.png</param>
+        <param name="vendor-logo">/media/vicon.png</param>
+    </plugin-info>
+
+    <!-- Resources -->
+    <resource type="i18n" name="i18n" location="ru.andreymarkelov.atlas.plugins.ganttlite.i18n.ganttlite"/>
+
+    <!-- Web Resources -->
+    <web-resource key="gantt-lite-web" name="Gantt Lite Resources">
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+        <dependency>jira.webresources:global-static</dependency>
+        <resource type="download" name="gantt.css" location="/ru/andreymarkelov/atlas/plugins/ganttlite/css/gantt.css"/>
+        <resource type="download" name="gantt.js" location="/ru/andreymarkelov/atlas/plugins/ganttlite/js/gantt.js"/>
+        <resource type="download" name="gantt-lite.js" location="/ru/andreymarkelov/atlas/plugins/ganttlite/js/gantt-lite.js"/>
+        <context>gantt-lite-resources</context>
+    </web-resource>
+
+    <!-- Sections -->
+    <web-item key="gantt-lite-link" name="Gantt Lite" section="system.top.navigation.bar" weight="47">
+        <label key="ru.andreymarkelov.atlas.plugins.ganttlite.view.title"/>
+        <tooltip key="ru.andreymarkelov.atlas.plugins.ganttlite.view.desc"/>
+        <conditions type="AND">
+            <condition class="com.atlassian.jira.plugin.webfragment.conditions.UserLoggedInCondition"/>
+        </conditions>
+        <link linkId="gantt-lite-link-section">/plugins/servlet/ganttlite/view</link>
+    </web-item>
+
+    <!-- Servlets -->
+    <servlet key="gantt-lite-viewservlet" class="ru.andreymarkelov.atlas.plugins.ganttlite.servlet.GanttServlet">
+        <url-pattern>/ganttlite/view</url-pattern>
+    </servlet>
+
+    <!-- REST-->
+    <rest key="gantt-lite-resources" path="/ganttlitews" version="1.0">
+        <description>Provides the REST resource for Gantt events and settings.</description>
+    </rest>
+
+    <!-- Component Imports -->
+    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <component-import key="loginUriProvider" interface="com.atlassian.sal.api.auth.LoginUriProvider"/>
+    <component-import key="pluginSettingsFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory"/>
+    <component-import key="templateRenderer" interface="com.atlassian.templaterenderer.velocity.one.six.VelocityTemplateRenderer" />
+</atlassian-plugin>

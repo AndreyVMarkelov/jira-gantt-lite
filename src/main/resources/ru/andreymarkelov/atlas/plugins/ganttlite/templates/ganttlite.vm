@@ -1,0 +1,10 @@
+<html>
+<head>
+    <title>$i18n.getText("ru.andreymarkelov.atlas.plugins.ganttlite.page.title")</title>
+    <meta name="decorator" content="atl.general"/>
+    $webResourceManager.requireResourcesForContext("gantt-lite-resources")
+</head>
+    <body>
+        <div class="gantt-lite" style="width: 100%"></div>
+    </body>
+</html>
